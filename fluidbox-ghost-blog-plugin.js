@@ -45,11 +45,17 @@ window.fluidboxGhost = $.when(
       $(this).appendTo($(this).next("a"));
     });
 
-    // Initialize Fluidbox
-    $(".zoom:not(.fluidbox--opened)").fluidbox({
+    // Build Fluidbox Config
+    let fluidboxConfig = {
       loader: true,
       immediateOpen: true,
-    }).on('openstart.fluidbox', function() {
+    };
+    if(window.fluidboxConfig){
+       Object.assign(fluidboxConfig, window.fluidboxConfig);
+    }
+  
+    // Initialize Fluidbox
+    $(".zoom:not(.fluidbox--opened)").fluidbox(fluidboxConfig).on('openstart.fluidbox', function() {
       if(theme === 'image-backdrop'){
         var $img = $(this).find('img');
         let imgSrc = $img.attr('src');
